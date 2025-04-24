@@ -7,15 +7,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-       /* Page styles for the page! */
+        /* --- General Styles --- */
         body {
             margin: 0;
             min-height: 100vh;
-            background-color: #F3F4F6;
-            color: #374151;
+            background-color: #181818;
+            color: #E0E0E0;
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         .content-wrapper {
@@ -27,11 +28,12 @@
         }
 
         header, section, footer {
-            background-color: #FFFFFF;
+            background-color: #212121;
             padding: 25px 30px;
             margin-bottom: 30px;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
         }
 
         h1, h2, h3 {
@@ -52,7 +54,7 @@
             font-family: 'Inter', sans-serif;
             text-align: center;
             font-size: 1.2em;
-            color: #6B7280;
+            color: #A1A1AA;
             margin-top: 0;
             margin-bottom: 20px;
         }
@@ -65,7 +67,16 @@
 
         p {
             margin-bottom: 15px;
-            color: #4B5563;
+            color: #D4D4D8;
+        }
+
+        a {
+            color: #8AB4F8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
 
         ul {
@@ -84,13 +95,13 @@
         }
 
         #skills .skills-list li {
-            background-color: #E5E7EB;
-            color: #374151;
+            background-color: #374151;
+            color: #E5E7EB;
             padding: 8px 15px;
             border-radius: 20px;
             font-size: 0.9em;
             font-weight: bold;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         #projects .project-grid {
@@ -100,38 +111,37 @@
         }
 
         #projects .project-card {
-            background-color: #FFFFFF;
+            background-color: #272727;
             padding: 20px;
             border-radius: 8px;
-            border: 1px solid #E0E0E0;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
+            border: 1px solid #4A5568;
+            color: #F3F4F6;
         }
 
         #projects .project-card:hover {
             transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
         }
 
         footer {
             text-align: center;
             font-size: 0.9em;
-            color: #71717A;
+            color: #A1A1AA;
             margin-bottom: 0;
-            background-color: #F9FAFB;
+            background-color: #1F2937;
             padding: 20px;
             border-radius: 8px 8px 0 0;
-            box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.3);
         }
 
-        /* Modal styles */
+        /* Modal styles - Dark Theme */
         .modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.9);
             color: #FFFFFF;
             display: none;
             justify-content: center;
@@ -145,14 +155,14 @@
         }
 
         .modal-content {
-            background-color: #1F2937;
+            background-color: #374151;
             color: #FFFFFF;
             padding: 30px;
             border-radius: 10px;
             max-width: 600px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
         }
 
         .modal-content h3 {
@@ -171,7 +181,6 @@
             padding: 10px 20px;
             border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
         }
 
         .modal-content button:hover {
@@ -183,38 +192,84 @@
             filter: blur(5px);
         }
 
-        /* Jumpscare image styles */
-        #jumpscare-image {
+        /* --- Loading Screen Styles --- */
+        #loading-screen {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.9); /* Optional dark background for effect */
+            width: 100%;
+            height: 100%;
+            background-color: #111827;
+            color: #f9fafb;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 10000;
+            opacity: 1;
+            transition: opacity 0.5s ease;
         }
 
-        #jumpscare-image img {
-            max-width: 80%;
-            max-height: 80%;
-            animation: fadeIn 0.3s ease-out;
+        #loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #loading-screen h1 {
+            font-family: 'Press Start 2P', monospace;
+            color: #8b5cf6;
+            font-size: 2.5em;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+        }
+
+        #loading-screen .spinner {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 8px solid transparent;
+            border-top-color: #f59e0b;
+            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        #loading-screen .prompt {
+            font-size: 1.4em;
+            color: #cbd5e0;
+            margin-bottom: 2rem;
+            animation: fadeIn 2s ease, pulse 2s infinite alternate;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.06); }
+        }
+        
+
     </style>
 </head>
 <body>
-    <div class="content-wrapper">
+    <div id="loading-screen">
+        <h1>DriverJack.co.uk</h1>
+        <div class="spinner"></div>
+        <div class="prompt">Hi!</div>
+    </div>
+
+    <div class="content-wrapper" style="display: none;">
         <header>
             <h1>Jack Brown</h1>
             <p class="subtitle">Aspiring Full-Stack Developer</p>
@@ -271,7 +326,7 @@
                     <div class="project-card" data-project="next">
                         <h3>Maze Bank GTA V Mock website</h3>
                         <p>A Joke started between some friends that we need our own currency!</p>
-                        
+
                         <br>
                         <a href="https://bank.driverjack.co.uk/" target="_blank">$/Bank.driverjack.co.uk</a>
                     </div>
@@ -280,36 +335,48 @@
                         <p>I'm busy give me a moment!</p>
                     </div>
                 </div>
+            </section>
 
             <section id="contact">
                 <h2>Get In Touch</h2>
                 <p>I'm always excited to learn and collaborate. If you want to connect, the best way is through:</p>
                 <ul>
                     <li><strong>GitHub:</strong> <a href="https://github.com/null65" target="_blank">null65</a></li>
-
                 </ul>
             </section>
         </main>
+
+        <section id="friends">
+            <h2>Friends of Jack!</h2>
+            <p>Shoutout to some awesome people and their projects:</p>
+            <p>
+                <a href="https://g4iyt.uk/" target="_blank">Matt (g4iyt.uk)</a> - Showing me some cool stuff! |
+                <a href="https://nafaneel.uk/" target="_blank">Nafaneel.uk</a> - Helping with my first website ever! |
+                <a href="https://cptb.driverjack.co.uk/" target="_blank">CPTB Website</a> |
+                <a href="https://rts.driverjack.co.uk/" target="_blank">RTS Website</a>
+            </p>
+        </section>
 
         <footer>
             <p>&copy; 2025 Jack Brown - Built with curiosity, Love, and code.</p>
         </footer>
     </div>
 
-    
+
     <div id="project-modal" class="modal">
         <div class="modal-content">
             <h3 id="modal-title">Project Title</h3>
             <p id="modal-description">Project description goes here.</p>
             <button id="close-modal">Done reading?, Have a look around!</button>
             <br>
-            
-            
+
+
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const loadingScreen = document.getElementById('loading-screen');
             const contentWrapper = document.querySelector('.content-wrapper');
             const modal = document.getElementById('project-modal');
             const modalTitle = document.getElementById('modal-title');
@@ -328,13 +395,24 @@
                 next: {
                     title: "Maze Bank GTA V Mock website",
                     description: "Me and my mates decided it was time for our own digital currency! But we needed a sleek and fun way to manage this! This is where the Maze Bank mock started! This is not a real bank, Only a joke! this is not related to Rockstar Games in any way shape or form apart from the logo and wording."
-                    
+
                 },
                 another: {
                     title: "Hey! i said more coming soon!",
                     description: "hmmmmmm, I wonder what this could be? Maybe a new project? Or maybe a new website? Who knows! But for now, this is all I have to show you. Stay tuned for more updates!"
                 }
             };
+
+            // Simulate loading time and then remove the loading screen
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                contentWrapper.style.display = 'block';
+                setTimeout(() => {
+                    contentWrapper.style.opacity = '1';
+                }, 100);
+
+            }, 2000);
+
 
             // Show modal when a user clicks on the card which is coooool!
             document.querySelectorAll('.project-card').forEach(card => {
@@ -356,23 +434,10 @@
                 modal.classList.remove('active');
                 contentWrapper.classList.remove('blurred');
             });
-
-            // Jumpscare functionality
-            const jumpscareContainer = document.createElement('div');
-            jumpscareContainer.id = 'jumpscare-image';
-
-            const jumpscareImage = document.createElement('img');
-            jumpscareImage.src = 'mrskibidi.webp'; 
-            jumpscareImage.alt = 'lil broskis and broskettes';
-
-            jumpscareContainer.appendChild(jumpscareImage);
-            document.body.appendChild(jumpscareContainer);
-
-            setTimeout(() => {
-                jumpscareContainer.remove();
-            }, 2200); // 1.2 seconds
         });
     </script>
 </body>
 </html>
+
+
 <!-- yo blud stop snoopin fam! wanna see the code at least go to my github! and dont be scared! null65 out! -->
